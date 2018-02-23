@@ -29,14 +29,16 @@ exports.fetchItem = function(schemaName, id) {
 };
 
 
-storage.delete = function(schema, id) {
+exports.delete = function(schemaName, id) {
   return new Promise((resolve, reject) => {
-    if(!storage[schema] || !storage[schema][id]) {
+    console.log('cat', storage.cat);
+    console.log('id', id);
+    console.log('thing', storage.cat[id]);
+    // console.log(Object.keys(storage.cat)[0]);
+    if(!storage[schemaName] || !storage[schemaName][id]) {
       return reject(new Error('no item found to delete'));
     }
-    delete storage[schema][id];
-    return resolve(storage[schema]);
-
+    delete storage[schemaName][id];
+    return resolve();
   });
-
 };

@@ -54,32 +54,32 @@ router.post('/api/cat', function(req, res) {
   }
 });
 
-// router.delete('/api/cat', function(req, res) {
-//   if (req.url.query.id) {
-//     storage.fetchItem('cat', req.url.query.id)
-//       .then( cat => {
-//         res.writeHead(200, {
-//           'Content-Type': 'text/plain'
-//         });
-//         res.write(JSON.stringify(cat));
-//         res.end();
-//       })
-//       .catch( err => {
-//         console.error(err);
-//         res.writeHead(404, {
-//           'Content-Type': 'text/plain'
-//         });
-//         res.write('response not found');
-//         res.end();
-//       });
-//     return;
-//   }
-//   res.writeHead(400, {
-//     'Content-Type': 'plain/text'
-//   });
-//   res.write('bad response');
-//   res.end();
-// });
+router.delete('/api/cat', function(req, res) {
+  if (req.url.query.id) {
+    storage.delete('cat', req.url.query.id)
+      .then( () => {
+        res.writeHead(204, {
+          'Content-Type': 'text/plain'
+        });
+        res.write('cat is dead');
+        res.end();
+      })
+      .catch( err => {
+        console.error(err);
+        res.writeHead(404, {
+          'Content-Type': 'text/plain'
+        });
+        res.write('no cat found');
+        res.end();
+      });
+    return;
+  }
+  res.writeHead(400, {
+    'Content-Type': 'plain/text'
+  });
+  res.write('bad response');
+  res.end();
+});
 
 
 const server = http.createServer(router.route());

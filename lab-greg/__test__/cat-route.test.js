@@ -25,19 +25,20 @@ describe('Cat Routes', function() {
       request.get(`localhost:3000/api/cat?id=${cat.id}`)
         .end((err, res) => {
           if (err) return done(err);
+          let gotCat = JSON.parse(res.text);
           expect(res.status).toEqual(200);
-          expect(cat.name).toEqual('test name');
-          expect(cat.content).toEqual('test content');
+          expect(gotCat.name).toEqual('test name');
+          expect(gotCat.content).toEqual('test content');
           done();
         });
     });
   });
   describe('DELETE: /api/cat', function() {
     it('should delete a cat', function(done) {
-      request.delete(`localhost:3000/api/cat?id=${cat.id})`)
+      request.delete(`localhost:3000/api/cat?id=${cat.id}`)
         .end((err, res) => {
           if (err) return done(err);
-          expect(res.status).toEqual(200);
+          expect(res.status).toEqual(204);
           done();
         });
     });
